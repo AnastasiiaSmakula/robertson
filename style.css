@@ -1,0 +1,113 @@
+/* https://fonts.google.com/ */
+/* takto vytvoris komentar */ 
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,500;0,700;1,500;1,700&display=swap');
+* { /* Znak '*' znamena ze to bude platne pre akykolvek html prvok (p, h, li), az b sme chceli byt specificky nahradime '*' napr. s 'body' ... univerzalny sektor platiaci pre vsetky html prvky */
+    font-family: 'Ubuntu, sans-serif'; /* Nastavenie fontu pre cely css dokument */
+    margin: 0; /* priestor medzi okrajmi stranky a samotnym prvkom, 0 znamena ze odstrani vonkajsie medzery prvkov, prehliadace casto pridavaju prvkom ako <body> <h1> <p> nejake defaultne marginy */
+    padding: 0; /* priestom medzi dvoma prvkami, odstrani teda vnutorne medzery (napr. ak by sme mali stvorec a v nom <p> tak prave toto odstrani medzery medzi <p> a samotnym stvorcom */
+    box-sizing: border-box; /* predvolene byva content-box ale ten robi problemy ked zacneme pouzivat dodatocne paddingy a marginy (ten sposobuje zmensovanie a zvacsovanie prvkov), no border-box nie */
+    list-style: none; /* uplne odstranenie odrazok ako je napr. °  alebo 1. 2. ... */
+    text-decoration: none; /* zrusenie defaultneho podciarkovania odkazov ktore sa vytvaraju pomocou html tagu <a> */
+    /* Pouziva sa ak mame napr. tlacidlo ktore po kliknuti nas presunie na tej istej stranke do inej sekcii strnaky, vtedy moze nastat ze navigacny panel ktory nie je fixny ( ale presuva sa ako scrollujeme)  */
+    /* moze prekryt zaciatok danej sekcie kam sme sa chceli posunut */
+    /* In CSS rem stands for “root em”, a unit of measurement that represents the font size of the root element. This means that 1rem equals the font size of the html element, 
+    which for most browsers has a default value of 16px. Using rem can help ensure consistency of font size and spacing throughout your UI */
+    scroll-padding-top: 2rem;
+    scroll-behavior: smooth; /* plynule scrolovanie */
+}
+
+/* Premenne */
+:root { /* root je specialny selektor v CSS, predstavuje najvyssi rodicovsky prvok, pouziva sa na definovanie CSS premennych ktore neskor pouzivame v html alebo v css dokumente */
+  --main-color: #0f9c80; /* CSS premenne sa vzdy zacinaju dvomi pomlckami -- */
+  --text-color: #000000;
+  --logo-color: #000000;
+  --bg-color: #fff;
+  --text-color: #fff;
+  --underline-items-navbar: #000000;
+  --bg-signin-bg: #5f3b74;
+}
+
+body {
+    background: var(--text-color); /* ak chceme sa odkazovat na CSS premenny v CSS dokumente potrebujeme pouzit var() */
+    color: var(--bg-color); /* farba pre text v tele */
+}
+
+header {
+    position: fixed; /* umiestni header na prevnu poziciu na stranke a ostane na tom mieste aj v pripade posuvania sa alebo scrollovania */
+    width: 100%; /* nastavi sirku headeru (a vsetkeho co je v nom) na celu sirku zariadenia na ktorom zobrazujeme stranku */
+    top: 0; /* umiestni header  na vrch stranky a presne 0px od vrchu stranky */
+    right: 0; /* umiestni header  na pravu stranu stranky stranky a presne 0px od pravej strany */
+    display: flex; /* Pouzije sa flexbox rozlozenie, ktore umozni flexibilne usporiadat obsah v headry */
+    align-items: center; /* Vetikalne centrovanie obsahu (ikoniek a textu v headry) */
+    justify-content: space-between; /* rozmiestni obsah flexboxu tak aby bol medzi prvkami rovnomerny priestor */
+    transition: 1s; /* ked sa meni styl headru tak tato zmena potrva 1 sekundu */
+    background: var(--main-color);
+    z-index: 1000; /* urcuje vidilnost vrstvy, cim vyssie cislo tym vyssie zobrazenie */
+    padding: 20px 100px;
+}
+
+/* bodka pred nazvom znamena ze s aodkazujeme na triedu ( za bodkou je konkretny nazov triedy -> class="logo") */
+.logo {
+    font-size: 1rem; /* velkost nadpisu "Knihy" 16px lebo 16px = 1rem */
+    font-weight: 500; /* hrubka pisma */
+    color: var(--bg-color);
+    display: flex; /* zarovnanie za sebou , NIE pod seba ,  to sposobi display flex */
+    align-items: center;
+    column-gap: 0.5rem; /* medzera medzi ikonkou a textom "Knihy" */
+}
+
+/* .logo .bx -> Aplikuje sa na <i class="bx bx-book"></i> Knihy */
+/* toto uprednostni svoje nastavenia pred nastavenim rodica class="logo" teda .logo v ktorom sa nachadza (teda prepise co on nastavi ale len pre bx)  */
+.logo .bx {
+    font-size: 32px; /* nastavi velkost samotneho loga resp. ikony */
+    color: var(--logo-color);
+}
+
+.navbar {
+    display: flex; /* Toto sposobi ze polozky v menu sa nezobrazia pod sebou ale vedla seba, vidno to najme pri <ul> tagu co je list / zoznam */
+    column-gap: 5rem;
+}
+
+.navbar li {
+    position: relative;
+}
+
+.navbar a {
+   font-size: 1rem;
+   font-weight: 1000;
+   color: var(--bg-color);
+}
+
+/* efekt podciarknutia */
+.navbar a::after {
+    content: '';
+    width: 0;
+    height: 2px;
+    background: var(--underline-items-navbar);
+    bottom: -5px;
+    left: 0;
+    transition: 0.4s all linear;
+    position: absolute;
+}
+
+.navbar a:hover::after,
+.navbar .home-action::after {
+    width: 100%;
+}
+
+.btn {
+    background-color: var(--bg-signin-bg);
+    color: var(--text-color);
+    font-weight: 700;
+    border-radius: 0.5rem; /* zaoblenie rohov buttonu */
+    padding: 1rem 1rem; /* vnutorne medzery vyska x sirka */
+}
+
+.btn:hover {
+    background-color: #9a06f0;
+}
+
+/* aj toto je sposob ako sa vyhnut celkovemu priradovaniu nastaveni pre vsetky elementy v .navbar triede (pozri vyssie) */
+/* .navbar #test {
+    color: rgb(105, 218, 255);
+} */
